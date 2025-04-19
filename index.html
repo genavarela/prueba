@@ -3,150 +3,159 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Pedro</title>
+  <title>Strempy</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
+      margin: 0;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(180deg, orange 50%, white 50%);
-      overflow-x: hidden;
-      color: #333;
+      background: #f2f2f2;
     }
 
-    .section {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 60px;
+    header {
+      background: #ff6600;
       color: white;
-    }
-
-    .title {
-      font-weight: bold;
-    }
-
-    .content {
-      padding: 100px 20px;
-      text-align: center;
-      background: white;
-    }
-
-    .images {
+      padding: 20px;
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .img-box {
-      border: 2px solid #ccc;
-      padding: 10px;
-      width: 200px;
-      height: 200px;
-      overflow: hidden;
-    }
-
-    .img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .descriptions {
+    .buttons {
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-
-    .desc {
-      width: 200px;
+      gap: 10px;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: orange;
-      color: white;
+      background: white;
       border: none;
+      padding: 10px 20px;
       border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    #modal {
+    #modal-register, #modal-login {
       display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       justify-content: center;
       align-items: center;
     }
 
-    #modal .box {
+    .modal-content {
       background: white;
       padding: 30px;
       border-radius: 10px;
       text-align: center;
+      width: 300px;
     }
 
-    #modal .box h2 {
-      margin-bottom: 20px;
+    .modal-content input {
+      margin-bottom: 10px;
+      width: 90%;
+      padding: 8px;
     }
 
-    #modal .box button {
-      background: #333;
+    .modal-content p {
+      color: red;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <div class="section">
-    <div class="title">Pedro</div>
+  <header>
+    <h1>Strempy</h1>
+    <div class="buttons">
+      <button onclick="showLogin()">Iniciar Sesión</button>
+      <button onclick="showRegister()">Crear Cuenta</button>
+    </div>
+  </header>
+
+  <!-- Modal Registro -->
+  <div id="modal-register">
+    <div class="modal-content">
+      <h2>Crear Cuenta</h2>
+      <input type="date" id="birthdate" placeholder="Fecha de Nacimiento"><br>
+      <input type="email" id="register-email" placeholder="Email"><br>
+      <input type="password" id="register-password" placeholder="Contraseña"><br>
+      <p id="register-error"></p>
+      <button onclick="createAccount()">Registrar</button><br><br>
+      <button onclick="closeModals()">Cancelar</button>
+    </div>
   </div>
 
-  <div class="content">
-    <div class="images">
-      <div class="img-box">
-        <img src="https://media.tenor.com/ABk_H74d-9sAAAAi/pedro-pedro.gif" alt="Pedro">
-      </div>
-      <div class="img-box">
-        <img src="https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif" alt="Random">
-      </div>
-    </div>
-
-    <div class="descriptions">
-      <div class="desc">Acá podés escribir una descripción para la primera imagen.</div>
-      <div class="desc">Acá podés escribir una descripción para la segunda imagen.</div>
-    </div>
-
-    <button onclick="openModal()">¿Querés saber más?</button>
-  </div>
-
-  <div id="modal">
-    <div class="box">
-      <h2>¿Querés saber más?</h2>
-      <p>¡Acá podrías poner más info o links si querés!</p>
-      <button onclick="closeModal()">Cerrar</button>
+  <!-- Modal Login -->
+  <div id="modal-login">
+    <div class="modal-content">
+      <h2>Iniciar Sesión</h2>
+      <input type="email" id="login-email" placeholder="Email"><br>
+      <input type="password" id="login-password" placeholder="Contraseña"><br>
+      <p id="login-error"></p>
+      <button onclick="login()">Entrar</button><br><br>
+      <button onclick="closeModals()">Cancelar</button>
     </div>
   </div>
 
   <script>
-    function openModal() {
-      document.getElementById('modal').style.display = 'flex';
+    function showRegister() {
+      document.getElementById('modal-register').style.display = 'flex';
     }
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
+
+    function showLogin() {
+      document.getElementById('modal-login').style.display = 'flex';
+    }
+
+    function closeModals() {
+      document.getElementById('modal-register').style.display = 'none';
+      document.getElementById('modal-login').style.display = 'none';
+      document.getElementById('register-error').textContent = '';
+      document.getElementById('login-error').textContent = '';
+    }
+
+    function createAccount() {
+      const birthdate = new Date(document.getElementById('birthdate').value);
+      const today = new Date();
+      const age = today.getFullYear() - birthdate.getFullYear();
+      const email = document.getElementById('register-email').value;
+      const password = document.getElementById('register-password').value;
+
+      if (age < 13) {
+        document.getElementById('register-error').textContent = "Debes tener al menos 13 años para registrarte.";
+        return;
+      }
+
+      if (!email || !password) {
+        document.getElementById('register-error').textContent = "Completa todos los campos.";
+        return;
+      }
+
+      localStorage.setItem(email, password);
+      alert("Cuenta creada correctamente.");
+      closeModals();
+    }
+
+    function login() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const savedPassword = localStorage.getItem(email);
+
+      if (savedPassword === null) {
+        document.getElementById('login-error').textContent = "No tienes cuenta, ¡créala!";
+        return;
+      }
+
+      if (savedPassword !== password) {
+        document.getElementById('login-error').textContent = "Contraseña incorrecta.";
+        return;
+      }
+
+      alert("Sesión iniciada correctamente.");
+      closeModals();
     }
   </script>
 
