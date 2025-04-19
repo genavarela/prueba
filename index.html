@@ -1,23 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Prueba</title>
+  <title>Prueba Montañas</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Arial Black', sans-serif;
-      background: url('https://tenor.com/es-419/view/janestree-gif-15218242402081882149') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .section {
+      position: relative;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      text-shadow: 2px 2px 4px #000;
+      font-size: 50px;
+      font-weight: bold;
+      color: white;
+      background: orange;
     }
+
+    .wave {
+      position: relative;
+      width: 100%;
+      height: 150px;
+      background: url('https://svgshare.com/i/137e.svg') repeat-x;
+      background-size: cover;
+      transform: rotate(180deg);
+    }
+
+    .section.second {
+      background: white;
+      color: orange;
+    }
+
+    .wave.reverse {
+      transform: rotate(0deg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section">
+    Bienvenido
+  </div>
+
+  <div class="wave"></div>
+
+  <div class="section second">
+    Desplazate hacia abajo
+  </div>
+
+  <div class="wave reverse"></div>
+
+  <div class="section">
+    ¡Fin del recorrido!
+  </div>
+
+</body>
+</html>
+
 
     h1 {
       font-size: 80px;
