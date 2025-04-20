@@ -1,0 +1,42 @@
+.centrado {
+  text-align: center;
+}
+
+.mi-boton {
+  background-color:cadetblue;
+  color:blue;
+  padding: 10px 10px;
+  border-radius: 10px; 
+  float: right;
+  margin:  10 px;
+}
+
+.modal {
+  display: none;
+  position: fixed; /* Para mantener el modal en su lugar al hacer scroll */
+  top: 50%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%); /* Ajuste para centrar exactamente */
+  width: 300px; /* Ancho del modal */
+  height: 300px; /* Alto del modal */
+  background-color: rgb(169, 166, 182); /* Fondo blanco */
+  border-radius: 15px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
+  padding: 20px; /* Espaciado interno */
+  z-index: 1000; /* Asegurarse de que esté sobre otros elementos */
+}
+
+.modal-contenido {
+  text-align: center;
+  padding: 20px;
+}
+
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
